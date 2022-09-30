@@ -354,7 +354,7 @@ module P = struct
     in
     Some ((P2.v cx cy), m, t0, t1)
 
-  let casteljau pt c c' pt' t =
+  let _casteljau pt c c' pt' t =
     let b00 = V2.mix pt c t in
     let b01 = V2.mix c c' t in
     let b02 = V2.mix c' pt' t in
@@ -662,7 +662,7 @@ module I = struct
     in
     let pp_glyphs ppf glyphs =
       pp ppf "@ @[<1>(glyphs";
-      List.iter (fun g -> pp ppf "@ %d" g) r.glyphs;
+      List.iter (fun g -> pp ppf "@ %d" g) glyphs;
       pp ppf ")@]"
     in
     pp ppf "@[<1>(glyph_run %a%a@ @[<1>(o %a)@]%a%a%a)@]"
@@ -683,7 +683,7 @@ module I = struct
   let const c = Primitive (Const c)
   let void = const Color.void
   let axial stops pt pt' = Primitive (Axial (stops, pt, pt'))
-  let raster b r = Primitive (Raster (b, r))
+  let _raster b r = Primitive (Raster (b, r))
   let radial stops ?f c r =
     let f = match f with None -> c | Some f -> f in
     Primitive (Radial (stops, f, c, r))
@@ -978,7 +978,7 @@ module Vgr = struct
   let expect_await k v r = match v with
   | `Await -> k r | _ -> invalid_arg err_exp_await
 
-  let expect_none v r = match v with
+  let expect_none v _r = match v with
   | `Await | `End | `Image _ -> invalid_arg err_end
 
   let ok k r = r.k <- k; `Ok
